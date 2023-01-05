@@ -1,10 +1,10 @@
 export async function getTaches() {
-    const res = await fetch('http://127.0.0.1:3000/taches');
+    const res = await fetch('http://localhost:3000/taches');
     return res.json();
 }
 
 export async function removeTaches(tache) {
-    const res = await fetch('http://127.0.0.1:3000/taches/' + tache._id, {
+    const res = await fetch('http://localhost:3000/taches/' + tache._id, {
         method: 'DELETE'
     });
     return res.json();
@@ -12,7 +12,7 @@ export async function removeTaches(tache) {
 
 export async function ajoutTaches(tache) {
     console.log(tache);
-    const res = await fetch('http://127.0.0.1:3000/taches', {
+    const res = await fetch('http://localhost:3000/taches', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ export async function ajoutTaches(tache) {
 
 export async function updateTaches(tache) {
     let tempTache = { "titre": tache.titre, "termine": tache.termine }
-    const res = await fetch('http://127.0.0.1:3000/taches/' + tache._id, {
+    const res = await fetch('http://localhost:3000/taches/' + tache._id, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

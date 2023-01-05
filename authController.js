@@ -2,7 +2,7 @@ const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 const url = "mongodb://127.0.0.1:27017/";
 
-exports.signIn = async function(req, res) {
+exports.signIn = async function (req, res) {
     let utilisateur = req.body;
     try {
         db = await MongoClient.connect(url);
@@ -15,15 +15,15 @@ exports.signIn = async function(req, res) {
     }
 }
 
-exports.login = async function(req, res) {
-    let utilisateur = req.body;
+exports.login = async function (req, res) {
     try {
+        let utilisateur = req.body;
         db = await MongoClient.connect(url);
         let dbo = db.db("taches");
         let utilisateurs = await dbo.collection("utilisateur").find({ login: utilisateur.login, password: utilisateur.password }).toArray();
         if (utilisateurs.length > 0) {
-            req.session.user = utilisateur.login;
-            res.status(200).end();
+            req.session.user = utilisateurs[0].login;
+            res.status(200).send();
         } else {
             res.status(401).json({ message: 'Unauthorized' });
         }
@@ -33,12 +33,12 @@ exports.login = async function(req, res) {
     }
 }
 
-exports.logout = async function(req, res) {
+exports.logout = async function (req, res) {
     if (req.session)
         await req.session.destroy();
     res.status(200).end();
-};
+}
 
-exports.isConnected = async function(req, res) {
+exports.isConnected = async function (req, res) {
     res.status(200).end();
-};
+}
