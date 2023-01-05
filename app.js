@@ -18,10 +18,10 @@ app.use(session({
 }));
 
 
+// app.use(cors());
+app.use(cors({ credentials: true, origin: 'http://localhost:4200' }))
+
 app.use(bodyParser.json());
-
-
-app.use(cors());
 
 function checkSignIn(req, res, next) {
     if (req.session.user) {
